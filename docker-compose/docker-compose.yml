@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    image: jaggyzpoon/demo:3.0
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: nginx-demo
+    ports:
+      - 7777:80
+  # PostgresDB
+  db:
+    image: postgres-demo
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgres-demo
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
