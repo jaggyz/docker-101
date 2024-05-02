@@ -58,8 +58,8 @@ in docker-compose after web service
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     volumes:
-      - ./database/table.sql:/docker-entrypoint-initdb.d/1.sql
-      - ./database/data.sql:/docker-entrypoint-initdb.d/2.sql
+      - ./postgres/table.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./postgres/data.sql:/docker-entrypoint-initdb.d/2.sql
 ```
 
 run service db
@@ -298,4 +298,29 @@ run service frontend_test_playwright
 docker compose up frontend_test_playwright -d
 or
 docker-compose up frontend_test_playwright -d
+```
+
+## Create Mountebank mock REST APIs
+
+in docker-compose add mock_api service
+```
+  mock_api:
+    image: mock-api:latest
+    container_name: mock-api
+    build:
+      context: ./mountebank
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./mountebank/imposters:/imposters
+    ports:
+      - 2525:2525
+      - 8090:8090
+    command: --configfile /imposters/imposters.ejs --allowInjection
+```
+
+run service mock_api
+```
+docker compose up mock_api -d
+or
+docker-compose up mock_api -d
 ```
