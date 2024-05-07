@@ -28,7 +28,7 @@ services:
 
   db2:
     image: postgres:16.0
-    container_name: postgres-demo
+    container_name: postgres2-demo
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
